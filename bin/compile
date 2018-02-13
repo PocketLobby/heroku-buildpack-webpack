@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+## This script assumes that `npm i` has already run. You can make sure this
+## happens by adding heroku/nodejs buildpack to the deployment
+
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 build_dir=$1
 cache_dir=$2
@@ -14,4 +17,9 @@ cd $build_dir
 
 head "Building webpack bundle"
 
-$(npm bin)/webpack 
+# NOTE: this line can help debug where the binary is
+# head $(ls ${build_dir}/node_modules/webpack/bin)
+
+# NOTE: this may or may not work too
+# $(npm bin)/webpack.js
+${build_dir}/node_modules/webpack/bin/webpack.js
